@@ -20,9 +20,14 @@
   },
   "homepage": "https://github.com/Thiernope/to-do-list-api#readme",
   "dependencies": {
+    "@sendgrid/client": "^7.4.0",
+    "@sendgrid/mail": "^7.4.2",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "validator": "^13.5.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.8",
