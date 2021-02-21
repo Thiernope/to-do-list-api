@@ -1,7 +1,7 @@
 import models from "../database/models"
 const { Users } = models;
 import jwt from "jsonwebtoken"
-import  { hashPassword, jwtToken } from "../utils/jwtFuncHelper"
+import  { hashPassword, jwtToken, comparePassword } from "../utils/jwtFuncHelper"
 const sgMail = require("@sendgrid/mail");
 
 export default class UserController {
@@ -77,6 +77,28 @@ export default class UserController {
         }
         
     }
+
+    static async signIn(req, res, next){
+        try {
+            const { email, password } = req.body;
+            const user = await Users.findOne({where: {email}});
+            if(user && comparePassword(password, user.password)) {
+                const token = jwtToken.createToken(user)
+                return res.status(200).json({
+                    success: true,
+                    message: "You logged in successfully !!",
+                    token
+                })
+            }
+
+            return res.status(400).json({
+                success: false,
+                message: "Invalid email or password"
+            })
+        } catch (error) {
+            return next( new Error(error))
+        }
+            }
 }
 
 

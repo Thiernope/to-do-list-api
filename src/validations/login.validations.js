@@ -3,14 +3,6 @@ export default async (req, res, next) => {
     if(!email){
         return res.status(400).send({error: "Email is required"});
     }
-
-    if(!fullname){
-        return res.status(400).send({error: "Fullname is required"});
-    }
-    if(!username){
-        return res.status(400).send({error: "Username is required"});
-    }
-    
     
     if(!password){
         return res.status(400).send({error: "Password is required"});
@@ -23,5 +15,3 @@ export default async (req, res, next) => {
   
     next();
     }
-
-
