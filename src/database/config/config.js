@@ -2,19 +2,18 @@ require("dotenv").config();
 
 module.exports = {
   development: {
-    database: "todolist",
-    use_env_variables: "DB_DEV_URL",
-    dialect: "postgres"
-  }, 
-   test: {
-    database: "testtodolist",
-    use_env_variables: "DB_TEST_URL",
-    dialect: "postgres"
+    url: process.env.DEV_DATABASE_URL,
+    dialect: "postgres",
+    logging: false,
+  },
+  test: {
+    url: process.env.TEST_DATABASE_URL,
+    dialect: "postgres",
+    logging: false,
   },
   production: {
-    database: "prodtodolist",
-    use_env_variables: "DB_PROD_URL",
-    dialect: "postgres"
+    url: process.env.PROD_DATABASE_URL,
+    dialect: "postgres",
+    logging: false,
   },
-
-}
+};

@@ -11,6 +11,11 @@ app.use(_bodyParser["default"].urlencoded({
   extended: false
 }));
 app.use(_bodyParser["default"].json());
+app.get("/home", function (req, res) {
+  return res.json({
+    message: "Welcome to Thierry's pesonal brand"
+  });
+});
 var port = process.env.PORT || 5000;
 app.listen(port, function () {
   return console.log("app started on port ".concat(port));

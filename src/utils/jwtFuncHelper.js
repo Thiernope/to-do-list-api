@@ -1,12 +1,24 @@
-import jwtSimple from "jwt-simple"; 
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import { config } from "dotenv";
+config();
 
-const generateToken = (user)=>{
-const accessToken = jwt.encode(user, process.env.ACCESS_SECRET_TOKEN);
-
-if(!accessToken){
-return {message: "Oops, something went wrong"};
+export const jwtToken = {
+     createToken({id, email}){
+        const token = jwt.sign({id, email}, process.env.ACCESS_SECRET_TOKEN , {expiresIn: "24h"});
+        return token;
+        },
+        
+      verifyToken(token ){
+        const decodedToken = jwt.verify(token, process.env.ACCESS_SECRET_TOKEN, { expiresIn: "24h"});
+        return decodedToken;
+        }
 }
-return {token: accessToken}
-}
 
-export default generateToken;
+export const hashPassword = (password)=>bcrypt.hashSync(password, 10);
+export const comparePassword = (password, hash) => bcrypt.compareSync(password, hash);
+
+export const decryptPassword = async (dataTodecrypt, dataBaseHash) => {
+    const deHashedPassword = await bcrypt.compare(dataTodecrypt, dataBaseHash);
+    return deHashedPassword;
+  };
